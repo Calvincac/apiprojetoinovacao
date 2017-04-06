@@ -12,3 +12,5 @@
 */
 
 Route::get('/', array('middleware' => 'cors', 'uses' => 'VagaController@listaVagas'));
+Route::post('/cadastro', array('middleware' => 'cors', 'uses' => 'VagaController@insereVaga'));
+ 
