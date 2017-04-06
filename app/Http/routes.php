@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/', 'VagaController@listaVagas');
+Route::get('/', array('middleware' => 'cors', 'uses' => 'VagaController@listaVagas'));
