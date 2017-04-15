@@ -8,8 +8,9 @@ class VagaController extends Controller
 {   
     public function listaVagas()
     {
-        $vagas =  Vaga::all(); // método ORM que busca tudo da tabela 
-        return response()->json($vagas);
+        //$vagas =  Vaga::all(); 
+        // método ORM que busca tudo da tabela relacionando com categorias 
+        return Vaga::with('categoria')->get()->toJson();
     }
 
     public function insereVaga()
