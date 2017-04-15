@@ -2,29 +2,41 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Request;
+use App\Vaga;
 
 class VagaController extends Controller
 {   
     public function listaVagas()
     {
-        $vagas = DB::select('select * from vaga');
+        $vagas =  Vaga::all(); // método ORM que busca tudo da tabela 
         return response()->json($vagas);
     }
 
     public function insereVaga()
     {
-         $vaga = Request::all();
-
-         $title = $vaga['title'];
-         $company = $vaga['company'];
-         $salary = $vaga['salary'];   
-         $description = $vaga['description'];
-
-        DB::insert(
-            "insert into vaga (title,company,salary,description) 
-        values (
-            '{$title}','{$company}', '{$salary}' , '{$description}')"
-         );        
+         $params = Request::all(); // pega tudo que foi enviado na requisicao post
+         $vaga = new Vaga($params); 
+         $vaga->save();//insere vaga no banco de dados   
+             
     }
+
+    public function mostra($id)
+    {
+        $vaga =  Vaga::find($id);
+
+        if (empty($vaga)) {
+            throw new Exception("Esse produto não existe");
+        }
+        
+        return response()->json($vaga);
+
+    }
+
+    public function remove($id)
+    {
+        $vaga = Vaga::find($id);
+        $vaga->delete();
+    }
+
 
 }
