@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Request;
 use App\Vaga;
+use App\Categoria;
 
 class VagaController extends Controller
 {   
@@ -24,12 +25,16 @@ class VagaController extends Controller
     public function mostra($id)
     {
         $vaga =  Vaga::find($id);
-
+        $categoria = Categoria::find($vaga['categoria_id']);
+        
         if (empty($vaga)) {
             throw new Exception("Esse produto não existe");
         }
         
-        return response()->json($vaga);
+        return Vaga::with('categoria')
+        ->join('categoria', 'categoria.id', '=', 'vaga.categoria_id')
+        ->get()->toJson(); 
+        //response()->json($vaga);
 
     }
 
