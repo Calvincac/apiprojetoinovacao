@@ -10,7 +10,7 @@ class Vaga extends Model
 	public $timestamps = false; //retira as colunas updated e created_at 
 
 	// atributo que define quais campos podem ser preenchidos no banco de dados
-	protected $fillable = array('title', 'company', 'salary', 'description');
+	protected $fillable = array('title', 'company', 'salary', 'description', 'categoria_id');
 
 	// atributo responsável por impedir que seja enviado um id
 	protected $guarded = ['ID'];
