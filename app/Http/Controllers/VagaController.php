@@ -24,24 +24,23 @@ class VagaController extends Controller
 
     public function mostra($id)
     {
-        $vaga =  Vaga::find($id);
-        $categoria = Categoria::find($vaga['categoria_id']);
-        
-        if (empty($vaga)) {
-            throw new Exception("Esse produto não existe");
-        }
-        
-        return Vaga::with('categoria')
-        ->join('categoria', 'categoria.id', '=', 'vaga.categoria_id')
-        ->get()->toJson(); 
-        //response()->json($vaga);
+        $vaga = Vaga::with('categoria')
+            ->get()
+            ->find($id)
+            ->toJson();
 
+        if (empty($vaga)) {
+            throw new Exception("Este id nao existe!");
+        }
+
+        return $vaga; 
     }
 
     public function remove($id)
     {
         $vaga = Vaga::find($id);
         $vaga->delete();
+        
     }
 
 
