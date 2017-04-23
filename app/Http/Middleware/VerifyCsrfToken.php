@@ -11,6 +11,8 @@ class VerifyCsrfToken extends BaseVerifier {
 
     protected $except = [
         'cadastro',
+        'altera/*',
+        'remove/*'
     ];
 
 
