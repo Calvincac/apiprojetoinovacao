@@ -11,7 +11,7 @@ class VagaController extends Controller
     {
         //$vagas =  Vaga::all(); 
         // método ORM que busca tudo da tabela relacionando com categorias 
-        return Vaga::with('categoria')->get()->toJson();
+        return Vaga::with('categoria')->get();
         
     }
 
@@ -27,8 +27,7 @@ class VagaController extends Controller
     {
         $vaga = Vaga::with('categoria')
             ->get()
-            ->find($id)
-            ->toJson();
+            ->find($id);
 
         if (empty($vaga)) {
             throw new Exception("Este id nao existe!");
